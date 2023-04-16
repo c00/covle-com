@@ -1,15 +1,68 @@
 ---
+import EmailLink from "../components/EmailLink.astro";
+import GithubLink from "../components/GithubLink.astro";
+import Navbar from "../components/Navbar.astro";
+import SlantedImageRow from "../components/SlantedImageRow.astro";
+import { Content as Scalability } from "../content/landing/Scalability.md";
+import { Content as Security } from "../content/landing/Security.md";
+import { Content as FullStack } from "../content/landing/FullStack.md";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Covle - Software Engineering, but good">
-	<main class="flex h-screen flex-col justify-center">
-		<div class="m-auto">
-			<img src="/logo-light.svg" class="h-20" alt="Company Logo" />
-			<div class="text-center mt-4">
-				<div class="text-lg header">Covle Software Development</div>
-				<div class="text-sm text-slate-700">contact me: dev [at] covle [dot] com</div>
+	<div class="flex justify-center overflow-x-hidden">
+		<main
+			class="min-h-screen w-full bg-white max-w-screen-xl md:mx-20 shadow-sm dark:bg-slate-900 px-16"
+		>
+			<Navbar />
+
+			<article class="mt-16 lg:mt-28 prose max-w-none dark:prose-invert">
+				<img
+					class="rounded-full h-20 w-auto"
+					src="/me-square-2.jpg"
+					alt="A picture of the Author"
+				/>
+				<h1>Software Engineer, Team Lead, Aerialist.</h1>
+				<p class="mt-8">
+					I am Co, a software engineer with significant experience in large
+					cloud applications, true full-stack development, and data security.
+					Here at Covle we create software that's build to last. Our focus is on
+					scalability, reliability and data security.
+				</p>
+				<div class="flex gap-4">
+					<GithubLink />
+					<EmailLink />
+				</div>
+				<div>
+					<SlantedImageRow />
+				</div>
+			</article>
+
+			<div class="flex gap-4">
+				<article class="w-2/3 prose max-w-none dark:prose-invert">
+					<Security />
+					<Scalability />
+					<FullStack />
+				</article>
+				<div class="w-1/3">
+					<div
+						class="border border-slate-300 dark:border-slate-600 px-6 py-4 rounded-lg"
+					>
+						<div class="header">recent work</div>
+						Side bar thing
+					</div>
+				</div>
 			</div>
-		</div>
-	</main>
+			<hr class="my-14">
+			<footer class="text-slate-500 mb-14 flex">
+				<div class="grow">
+					Some Footer with another nav menu probably.
+				</div>
+				<div>
+					Copyright Covle {new Date().getFullYear()}
+				</div>
+			</footer>
+		</main>
+
+	</div>
 </Layout>

@@ -1,0 +1,19 @@
+---
+import PromoImage from "./PromoImage.svelte";
+---
+
+<div class="image-container overflow-visible whitespace-nowrap my-14">
+  <div class="inner-container inline-block relative left-1/2">
+    <PromoImage link="/projects/exclam" image="/project-assets/exclam.png" />
+    <PromoImage link="/projects/chad-gupity" image="/project-assets/chad-slack.png" />
+    <PromoImage link="/projects/nqap" image="/project-assets/nqap.png" />
+    <PromoImage link="/projects/slack-github" image="/project-assets/slack-github.png" />
+    <PromoImage link="/projects/chat-gpt" image="/project-assets/local-chad.png" />
+  </div>
+</div>
+
+<style>
+  .inner-container {
+    translate: -50%;
+  }
+</style>

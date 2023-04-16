@@ -1,0 +1,28 @@
+---
+import DarkModeSwitch from "./DarkModeSwitch.svelte";
+import Logo from "./Logo.astro";
+---
+
+<div class="flex justify-between mt-8">
+  <a href="/" class="w-1/5 h-12 py-2"><Logo /></a>
+  <nav class="">
+    <ul
+      class="flex gap-4 rounded-full border border-slate-300 dark:border-slate-700 px-8 py-3 shadow-lg font-semibold dark:bg-slate-800"
+    >
+      <li><a href="/about">About</a></li>
+      <li><a href="/projects">Projects</a></li>
+      <li><a href="/testimonies">Testimonies</a></li>
+    </ul>
+  </nav>
+  <div class="w-1/5 text-right">
+    <div class="inline-block">
+      <DarkModeSwitch client:only />
+    </div>
+  </div>
+</div>
+
+<style>
+  a {
+    @apply hover:text-purple-500 transition-colors dark:hover:text-purple-600;
+  }
+</style>
