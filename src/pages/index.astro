@@ -1,68 +1,131 @@
 ---
 import EmailLink from "../components/EmailLink.astro";
+import Footer from "../components/Footer.astro";
 import GithubLink from "../components/GithubLink.astro";
 import Navbar from "../components/Navbar.astro";
 import SlantedImageRow from "../components/SlantedImageRow.astro";
-import { Content as Scalability } from "../content/landing/Scalability.md";
-import { Content as Security } from "../content/landing/Security.md";
-import { Content as FullStack } from "../content/landing/FullStack.md";
+import Section from "../components/section/Section.astro";
+import SectionDetails from "../components/section/SectionDetails.svelte";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Covle - Software Engineering, but good">
 	<div class="flex justify-center overflow-x-hidden">
-		<main
-			class="min-h-screen w-full bg-white max-w-screen-xl md:mx-20 shadow-sm dark:bg-slate-900 px-16"
+		<div
+			class="min-h-screen w-full bg-white max-w-screen-xl md:mx-20 shadow-sm dark:bg-slate-900"
 		>
-			<Navbar />
+			<main class="px-16">
+				<Navbar />
 
-			<article class="mt-16 lg:mt-28 prose max-w-none dark:prose-invert">
-				<img
-					class="rounded-full h-20 w-auto"
-					src="/me-square-2.jpg"
-					alt="A picture of the Author"
-				/>
-				<h1>Software Engineer, Team Lead, Aerialist.</h1>
-				<p class="mt-8">
-					I am Co, a software engineer with significant experience in large
-					cloud applications, true full-stack development, and data security.
-					Here at Covle we create software that's build to last. Our focus is on
-					scalability, reliability and data security.
-				</p>
-				<div class="flex gap-4">
-					<GithubLink />
-					<EmailLink />
-				</div>
-				<div>
-					<SlantedImageRow />
-				</div>
-			</article>
-
-			<div class="flex gap-4">
-				<article class="lg:w-2/3 prose max-w-none dark:prose-invert">
-					<Security />
-					<Scalability />
-					<FullStack />
-				</article>
-				<div class="hidden lg:block lg:w-1/3">
-					<div
-						class="border border-slate-300 dark:border-slate-600 px-6 py-4 rounded-lg"
-					>
-						<div class="header">recent work</div>
-						Side bar thing
+				<article class="mt-16 lg:mt-28 prose max-w-none dark:prose-invert">
+					<img
+						class="rounded-full h-20 w-auto"
+						src="/me-square-2.jpg"
+						alt="A picture of the Author"
+					/>
+					<h1>Software Engineer, Team Lead, Aerialist.</h1>
+					<p class="mt-8">
+						I am Co, a software engineer with significant experience in large
+						cloud applications, true full-stack development, and data security.
+						Here at Covle we create software that's build to last. Our focus is
+						on scalability, reliability and data security.
+					</p>
+					<div class="flex gap-4">
+						<GithubLink />
+						<EmailLink />
 					</div>
-				</div>
-			</div>
-			<hr class="my-14">
-			<footer class="text-slate-500 mb-14 flex">
-				<div class="grow">
-					Some Footer with another nav menu probably.
-				</div>
-				<div>
-					Copyright Covle {new Date().getFullYear()}
-				</div>
-			</footer>
-		</main>
+					<div>
+						<SlantedImageRow />
+					</div>
+				</article>
 
+				<Section title="Current Projects">
+					<SectionDetails
+						title="Netques Application Platform"
+						subtitle="Grants and Applications for Government and Education"
+						link="/projects/nqap"
+					>
+						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto
+						error sed, obcaecati delectus nulla animi est. Consequuntur, porro
+						quae. Velit voluptatum incidunt, reprehenderit quo culpa corporis
+						magni modi excepturi ex?
+					</SectionDetails>
+
+					<SectionDetails
+						title="Quest Escapes"
+						subtitle="Outdoor Escape Room & Team Building"
+						link="/projects/quest-escapes"
+					>
+						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+						provident fugit illo quaerat non ea temporibus inventore tenetur
+						doloribus impedit eos voluptatem fugiat id ad, nobis reiciendis
+						neque necessitatibus voluptatum!
+					</SectionDetails>
+				</Section>
+
+				<Section title="Pandemic Relief in Germany">
+					<SectionDetails
+						title="Ueberbrueckungshilfe Studierende"
+						subtitle="Providing Grants in Times of Need"
+						link="/projects/student-support"
+					>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
+						repellat accusamus dolorem enim voluptatum tempora labore, saepe
+						similique soluta eius obcaecati magnam explicabo laboriosam
+						voluptatibus delectus repudiandae architecto, laudantium corporis!
+					</SectionDetails>
+				</Section>
+
+				<Section title="AI / ChatGPT / Productivity">
+					<SectionDetails
+						title="ChatGPT / GPT-4 Client"
+						subtitle="Whisper and ChatGPT Integration"
+						link="/projects/chat-gpt"
+					>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod quia
+						sapiente maxime deleniti deserunt dignissimos at asperiores quam
+						nisi, voluptatibus doloremque et voluptatem, optio obcaecati!
+						Dolores est ipsum alias architecto!
+					</SectionDetails>
+
+					<SectionDetails
+						title="Slack ChatGPT Integration"
+						subtitle="Talk to Chad Gupity!"
+						link="/projects/chad-gupity"
+					>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non
+						veritatis unde quas quae ratione obcaecati illo architecto pariatur
+						cupiditate adipisci, odit corrupti amet tenetur commodi recusandae
+						ab accusamus neque earum?
+					</SectionDetails>
+
+					<SectionDetails
+						title="Github / Slack Continuous Integration"
+						subtitle="Approve Workflows from Slack"
+						link="/projects/slack-github"
+					>
+						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel
+						impedit corrupti doloribus iste ducimus, numquam nobis reprehenderit
+						sint voluptatem sit, repellat facere neque voluptates nam
+						voluptatibus quam! Cum, reiciendis quam?
+					</SectionDetails>
+				</Section>
+
+				<Section title="Personal">
+					<SectionDetails
+						title="Exclam! Chess Coordinates Trainer"
+						subtitle="Gamify your experience when learning Chess Coordinates"
+						link="/projects/exclam"
+					>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo dolorum
+						sapiente fugiat, ut cupiditate blanditiis voluptate. Ipsum quisquam
+						maiores quaerat? Ratione nisi enim aliquam sunt in nostrum quaerat
+						aliquid deserunt?
+					</SectionDetails>
+				</Section>
+			</main>
+
+<Footer />
+		</div>
 	</div>
 </Layout>

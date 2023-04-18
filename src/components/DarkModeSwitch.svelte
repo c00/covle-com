@@ -21,7 +21,7 @@
   }
 </script>
 
-<button on:click={() => (darkMode = !darkMode)} class="">
+<button on:click={() => (darkMode = !darkMode)}>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 256 256"
@@ -46,6 +46,6 @@
   button {
     @apply flex gap-4 rounded-full border p-2 shadow-lg font-semibold h-12 w-12 transition-all active:shadow-none hover:shadow-md
       hover:bg-slate-200 active:bg-slate-100 text-purple-600 border-slate-300
-      dark:hover:bg-slate-600 dark:active:bg-slate-700 dark:text-purple-200 dark:border-slate-700 dark:bg-slate-800;
+      dark:hover:bg-slate-600 dark:hover:text-purple-200 dark:active:bg-slate-700 dark:text-purple-600 dark:border-slate-700 dark:bg-slate-800;
   }
 </style>
