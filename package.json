@@ -15,12 +15,10 @@
     "@astrojs/tailwind": "^3.1.1",
     "@sendinblue/client": "^3.3.1",
     "astro": "^2.1.9",
-    "sanitize-html": "^2.10.0",
     "svelte": "^3.54.0",
     "tailwindcss": "^3.0.24"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.9",
-    "@types/sanitize-html": "^2.9.0"
+    "@tailwindcss/typography": "^0.5.9"
   }
 }
