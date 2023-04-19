@@ -1,7 +1,4 @@
 export async function sendEmail(name: string, email: string, subject: string, message: string) {
-  // const api = new SendInBlue.TransactionalEmailsApi();
-	// api.setApiKey(SendInBlue.TransactionalEmailsApiApiKeys.apiKey, import.meta.env.PRIVATE_SIB_KEY);
-
 	const content = [
 		`Covle contact form - ${subject}`,
 		'',
@@ -23,8 +20,9 @@ export async function sendEmail(name: string, email: string, subject: string, me
 
 	if (import.meta.env.PRIVATE_MOCK_EMAIL === '1') {
 		console.log('Mocking Email', emailData);
-		await new Promise<void>((res) => setTimeout(() => res(), 2000));
+		await new Promise<void>((res) => setTimeout(() => res(), 100));
 	} else {
+    console.log('Sending real email', emailData, import.meta.env.PRIVATE_SIB_KEY.substring(0, 5))
     await fetch('https://api.sendinblue.com/v3/smtp/email', {
       method: 'POST',
       headers: {
