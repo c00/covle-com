@@ -1,0 +1,143 @@
+---
+import { isValidEmail } from "../util/isValidEmail";
+import { sendEmail } from "../util/sendEmail";
+
+let name = "";
+let email = "";
+let message = "";
+
+const errors = { name: "", email: "", message: "" };
+let anyError = false;
+let submitted = false;
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    name = String(data.get("name"));
+    email = String(data.get("email"));
+    message = String(data.get("message"));
+
+    if (typeof name !== "string" || name.length < 1) {
+      errors.name += "Don't forget to enter your name!";
+      anyError = true;
+    }
+    if (typeof email !== "string" || !isValidEmail(email)) {
+      errors.email += "That doesn't look like a valid email address!";
+      anyError = true;
+    }
+    if (typeof message !== "string" || message.length < 1) {
+      errors.message += "I'm sure you have more to say than that!";
+      anyError = true;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
+  if (!anyError) {
+    submitted = true;
+    await sendEmail(name, email, name, message);
+  } else {
+    console.log("Errors", errors);
+  }
+}
+---
+
+<form class="flex flex-col gap-4 relative" method="post">
+  <div class={submitted ? "overlay" : "hidden"}>
+    <div
+      class="h-32 w-32 text-purple-300 rounded-full bg-purple-100 mx-auto mb-4"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="m10 13.6l5.9-5.9q.275-.275.7-.275t.7.275q.275.275.275.7t-.275.7l-6.6 6.6q-.3.3-.7.3t-.7-.3l-2.6-2.6q-.275-.275-.275-.7t.275-.7q.275-.275.7-.275t.7.275l1.9 1.9Z"
+        >
+        </path>
+      </svg>
+    </div>
+    <span class="text-slate-600 montserrat font-semibold"
+      >Message received!</span
+    >
+    <span class="text-slate-500 text-sm"
+      >We'll get back to you as soon as we can.</span
+    >
+  </div>
+  <label class={errors.name ? "invalid" : ""}>
+    <span class="montserrat label-content">Your Name</span>
+    <input
+      required
+      disabled={submitted}
+      placeholder="e.g. Biggus Diggus"
+      type="text"
+      id="name"
+      name="name"
+      value={name}
+    />
+    {errors.name && <div class="error-message">{errors.name}</div>}
+  </label>
+
+  <label class={errors.email ? "invalid" : ""}>
+    <span class="montserrat label-content"> Your Email Address</span>
+    <input
+      required
+      disabled={submitted}
+      placeholder="e.g. biggus@romanempire.example"
+      type="email"
+      id="email"
+      name="email"
+      value={email}
+    />
+    {errors.email && <div class="error-message">{errors.email}</div>}
+  </label>
+
+  <label class={errors.message ? "invalid" : ""}>
+    <textarea
+      required
+      maxlength="500"
+      disabled={submitted}
+      placeholder="Start typing..."
+      id="message"
+      name="message"
+      rows="5"
+      class="resize-none">{message}</textarea
+    >
+    {errors.message && <div class="error-message">{errors.message}</div>}
+  </label>
+
+  <button disabled={submitted} class="submit" type="submit">Send it!</button>
+</form>
+
+<style>
+  .overlay {
+    @apply absolute top-0 left-0 w-full h-full flex z-10 bg-white justify-center flex-col text-center border rounded-xl;
+  }
+
+  input,
+  textarea {
+    @apply px-6 pt-4 pb-1 border border-slate-400 focus:bg-purple-50 focus:shadow-lg shadow-black rounded-3xl transition-all w-full outline-purple-400
+      dark:border-slate-700 focus:dark:bg-slate-700 dark:outline-purple-700 dark:bg-slate-800
+      disabled:dark:bg-slate-500 disabled:cursor-not-allowed disabled:text-slate-300;
+  }
+
+  .invalid input,
+  .invalid textarea {
+    @apply border border-purple-800 dark:border-purple-600;
+  }
+
+  .error-message {
+    @apply text-purple-800 dark:text-purple-400 px-6;
+  }
+
+  label {
+    @apply relative;
+  }
+
+  .label-content {
+    @apply font-bold dark:text-slate-300 text-slate-700 text-sm pl-6 absolute top-1 left-0;
+  }
+
+  .submit {
+    @apply inline-block px-10 py-2 border border-purple-100 hover:shadow bg-purple-500 hover:bg-purple-600 transition-all rounded-3xl text-white ml-auto
+      dark:bg-purple-700 dark:border-purple-900 dark:hover:bg-purple-600 disabled:bg-purple-400 disabled:cursor-not-allowed;
+  }
+</style>

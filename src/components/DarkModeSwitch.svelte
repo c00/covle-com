@@ -3,25 +3,33 @@
 
   let darkMode = false;
 
-  $: toggle(darkMode);
-
   onMount(() => {
-    darkMode = document.body.classList.contains("dark");
+    darkMode = isDarkModePreferred();
   });
 
-  function toggle(toDarkMode: boolean) {
-    const isDarkMode = document.body.classList.contains("dark");
-    if (toDarkMode === isDarkMode) return;
+  function isDarkModePreferred(): boolean {
+    const storedPreference = localStorage.getItem("darkMode");
+    if (storedPreference !== null) return !!storedPreference;
+    return (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    );
+  }
 
-    if (toDarkMode) {
+  function toggle() {
+    darkMode = !darkMode;
+
+    if (darkMode) {
       document.body.classList.add("dark");
+      localStorage.setItem('darkMode', '1');
     } else {
       document.body.classList.remove("dark");
+      localStorage.setItem('darkMode', '');
     }
   }
 </script>
 
-<button on:click={() => (darkMode = !darkMode)}>
+<button on:click={() => toggle()}>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 256 256"

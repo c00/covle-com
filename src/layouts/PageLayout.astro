@@ -1,0 +1,21 @@
+---
+import Footer from "../components/Footer.astro";
+import Navbar from "../components/Navbar.astro";
+import MainLayout from "./MainLayout.astro";
+
+const { title } = Astro.props;
+---
+
+<MainLayout {title}>
+  <div class="flex justify-center overflow-x-hidden">
+    <div
+      class="min-h-screen w-full bg-white max-w-screen-xl md:mx-20 shadow-sm dark:bg-slate-900"
+    >
+      <main class="px-16">
+        <Navbar />
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </div>
+</MainLayout>

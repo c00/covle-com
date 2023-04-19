@@ -1,0 +1,20 @@
+---
+import ContactForm from "../components/ContactForm.astro";
+import PageLayout from "../layouts/PageLayout.astro";
+---
+
+<PageLayout title="Contact - Covle - Software Engineering, but good">
+  <div class="flex prose max-w-none dark:prose-invert mt-28 lg:mt-32 items-center">
+    <div class="w-3/5 px-20 mb-10">
+      <h1>Want to know more? We'd love to hear from you!</h1>
+      <p>
+        Feeling a little Covle-Curious? We get it. Send us a message and we'll get back
+        to you as soon as we can!
+      </p>
+    </div>
+
+    <div class="w-2/5 pr-20">
+      <ContactForm />
+    </div>
+  </div>
+</PageLayout>
