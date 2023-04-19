@@ -29,15 +29,14 @@ if (Astro.request.method === "POST") {
       errors.message += "I'm sure you have more to say than that!";
       anyError = true;
     }
+    if (!anyError) {
+      submitted = true;
+      await sendEmail(name, email, name, message);
+    } else {
+      console.log("Form Errors", errors);
+    }
   } catch (error) {
     console.error(error);
-  }
-
-  if (!anyError) {
-    submitted = true;
-    await sendEmail(name, email, name, message);
-  } else {
-    console.log("Errors", errors);
   }
 }
 ---
