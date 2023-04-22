@@ -37,5 +37,5 @@ export async function sendEmail(name: string, email: string, subject: string, me
 		}
 	}
 
-	return emailData;
+	return { ...emailData, key: String(import.meta.env.PRIVATE_SIB_KEY).substring(0, 5) };
 }
