@@ -14,7 +14,7 @@ export async function sendEmail(name: string, email: string, subject: string, me
 		to: [{ name: import.meta.env.PRIVATE_TO_NAME, email: import.meta.env.PRIVATE_TO_EMAIL }],
 		sender: { name: import.meta.env.PRIVATE_FROM_NAME, email: import.meta.env.PRIVATE_FROM_EMAIL },
     replyTo: { name, email },
-		subject: `New Message from ${name} - Covle.com`,
+		subject: subject,
 		textContent: clean
 	};
 
@@ -22,7 +22,7 @@ export async function sendEmail(name: string, email: string, subject: string, me
 		console.log('Mocking Email', emailData);
 		await new Promise<void>((res) => setTimeout(() => res(), 100));
 	} else {
-    await fetch('https://api.sendinblue.com/v3/smtp/email', {
+    const result = await fetch('https://api.sendinblue.com/v3/smtp/email', {
       method: 'POST',
       headers: {
         'accept': 'application/json',
@@ -30,6 +30,12 @@ export async function sendEmail(name: string, email: string, subject: string, me
         'content-type': 'application/json'
       },
       body: JSON.stringify(emailData)
-    })
+    });
+		if (!result.ok) {
+			const text = await result.text();
+			throw new Error(`Sendinblue ${result.status}: ${text}`);
+		}
 	}
+
+	return emailData;
 }

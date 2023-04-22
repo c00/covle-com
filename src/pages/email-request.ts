@@ -13,18 +13,25 @@ export const post: APIRoute = async ({ request }) => {
   const name = String(data.get('name'));
   const email = String(data.get('email'));
   const message = String(data.get('message'));
-  const subject = `Covle-com request from ${name}`;
+  const subject = `New Message from ${name} - Covle.com`;
 
   try {
-    await sendEmail(name, email, subject, message);
+    const result = await sendEmail(name, email, subject, message);
+    //todo remove this
+    return {
+      body: JSON.stringify({
+        status: 'ok',
+        ...result
+      })  
+    }
   } catch (err) {
     console.error(err);
     return new Response(JSON.stringify({'error': String(err)}), { status: 500, headers: { 'Content-Type': 'application/json' } });
   }
   
-  return {
-    body: JSON.stringify({
-      status: 'ok'
-    })
-  }
+  // return {
+  //   body: JSON.stringify({
+  //     status: 'ok'
+  //   })
+  // }
 }
