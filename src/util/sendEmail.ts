@@ -33,9 +33,10 @@ export async function sendEmail(name: string, email: string, subject: string, me
     });
 		if (!result.ok) {
 			const text = await result.text();
-			throw new Error(`Sendinblue ${result.status}: ${text}`);
+			const key = String(import.meta.env.PRIVATE_SIB_KEY).substring(0, 5);
+			throw new Error(`Sendinblue ${result.status}: ${text}, ${key}`);
 		}
 	}
 
-	return { ...emailData, key: String(import.meta.env.PRIVATE_SIB_KEY).substring(0, 5) };
+	return { ...emailData };
 }
