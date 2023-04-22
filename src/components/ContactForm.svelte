@@ -1,47 +1,48 @@
----
-import { isValidEmail } from "../util/isValidEmail";
-import { sendEmail } from "../util/sendEmail";
+<script lang="ts">
+  import { validateEmailFormData } from "../util/validateEmailFormData";
+  import Spinner from "./Spinner.svelte";
 
-let name = "";
-let email = "";
-let message = "";
+  let name = "";
+  let email = "";
+  let message = "";
 
-const errors = { name: "", email: "", message: "" };
-let anyError = false;
-let submitted = false;
+  let errors = { name: "", email: "", message: "" };
+  let valid = false;
+  let submitted = false;
+  let busy = false;
 
-if (Astro.request.method === "POST") {
-  try {
-    const data = await Astro.request.formData();
-    name = String(data.get("name"));
-    email = String(data.get("email"));
-    message = String(data.get("message"));
+  async function submitForm(event: Event) {
+    event.preventDefault();
 
-    if (typeof name !== "string" || name.length < 1) {
-      errors.name += "Don't forget to enter your name!";
-      anyError = true;
-    }
-    if (typeof email !== "string" || !isValidEmail(email)) {
-      errors.email += "That doesn't look like a valid email address!";
-      anyError = true;
-    }
-    if (typeof message !== "string" || message.length < 1) {
-      errors.message += "I'm sure you have more to say than that!";
-      anyError = true;
-    }
-    if (!anyError) {
+    // Get the form data
+    const form = event.target as HTMLFormElement;
+    const data = new FormData(form);
+
+    const validationResult = validateEmailFormData(data);
+    errors = validationResult.errors;
+    valid = validationResult.valid;
+
+    if (!valid) return;
+    busy = true;
+
+    try {
+      const response = await fetch("/email-request", {
+        method: form.method,
+        body: data,
+      });
+      if (!response.ok) {
+        console.error("Error submitting form", response);
+        return;
+      }
       submitted = true;
-      await sendEmail(name, email, name, message);
-    } else {
-      console.log("Form Errors", errors);
+    } catch (err) {
+      console.error("Error making request", err);
     }
-  } catch (error) {
-    console.error(error);
+    busy = false;
   }
-}
----
+</script>
 
-<form class="flex flex-col gap-4 relative" method="post">
+<form class="flex flex-col gap-4 relative" method="post" on:submit={submitForm}>
   <div class={submitted ? "overlay" : "hidden"}>
     <div
       class="h-32 w-32 dark:text-purple-200 text-purple-400 rounded-full dark:bg-purple-700 bg-purple-100 mx-auto mb-4"
@@ -50,8 +51,7 @@ if (Astro.request.method === "POST") {
         <path
           fill="currentColor"
           d="m10 13.6l5.9-5.9q.275-.275.7-.275t.7.275q.275.275.275.7t-.275.7l-6.6 6.6q-.3.3-.7.3t-.7-.3l-2.6-2.6q-.275-.275-.275-.7t.275-.7q.275-.275.7-.275t.7.275l1.9 1.9Z"
-        >
-        </path>
+        />
       </svg>
     </div>
     <span class="text-slate-600 dark:text-slate-300 montserrat font-semibold"
@@ -65,48 +65,59 @@ if (Astro.request.method === "POST") {
     <span class="montserrat label-content">Your Name</span>
     <input
       required
-      disabled={submitted}
+      disabled={busy}
       placeholder="e.g. Biggus Diggus"
       type="text"
       id="name"
       name="name"
       value={name}
     />
-    {errors.name && <div class="error-message">{errors.name}</div>}
+    {#if errors.name}
+      <div class="error-message">{errors.name}</div>
+    {/if}
   </label>
 
   <label class={errors.email ? "invalid" : ""}>
     <span class="montserrat label-content"> Your Email Address</span>
     <input
       required
-      disabled={submitted}
+      disabled={busy}
       placeholder="e.g. biggus@romanempire.example"
       type="email"
       id="email"
       name="email"
       value={email}
     />
-    {errors.email && <div class="error-message">{errors.email}</div>}
+    {#if errors.email}
+      <div class="error-message">{errors.email}</div>
+    {/if}
   </label>
 
   <label class={errors.message ? "invalid" : ""}>
     <textarea
       required
       maxlength="500"
-      disabled={submitted}
+      disabled={busy}
       placeholder="Start typing..."
       id="message"
       name="message"
       rows="5"
       class="resize-none">{message}</textarea
     >
-    {errors.message && <div class="error-message">{errors.message}</div>}
+    {#if errors.message}
+      <div class="error-message">{errors.message}</div>
+    {/if}
   </label>
 
-  <button disabled={submitted} class="submit" type="submit">Send it!</button>
+  <div class="flex gap-4 justify-end">
+    {#if busy}
+      <Spinner />
+    {/if}
+    <button disabled={busy} class="submit" type="submit">Send it!</button>
+  </div>
 </form>
 
-<style>
+<style lang="postcss">
   .overlay {
     @apply absolute top-0 left-0 w-full h-full flex z-10 bg-white justify-center flex-col text-center border dark:border-slate-700 rounded-xl dark:bg-slate-800;
   }
@@ -136,7 +147,7 @@ if (Astro.request.method === "POST") {
   }
 
   .submit {
-    @apply inline-block px-10 py-2 border border-purple-100 hover:shadow bg-purple-500 hover:bg-purple-600 transition-all rounded-3xl text-white ml-auto
+    @apply inline-block px-10 py-2 border border-purple-100 hover:shadow bg-purple-500 hover:bg-purple-600 transition-all rounded-3xl text-white 
       dark:bg-purple-700 dark:border-purple-900 dark:hover:bg-purple-600 disabled:bg-purple-400 disabled:cursor-not-allowed;
   }
 </style>

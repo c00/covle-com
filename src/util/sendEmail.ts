@@ -22,7 +22,6 @@ export async function sendEmail(name: string, email: string, subject: string, me
 		console.log('Mocking Email', emailData);
 		await new Promise<void>((res) => setTimeout(() => res(), 100));
 	} else {
-    console.log('Sending real email', emailData, import.meta.env.PRIVATE_SIB_KEY.substring(0, 5))
     await fetch('https://api.sendinblue.com/v3/smtp/email', {
       method: 'POST',
       headers: {
