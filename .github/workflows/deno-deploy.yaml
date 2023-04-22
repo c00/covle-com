@@ -17,11 +17,11 @@ jobs:
       - name: Build Astro
         run: pnpm run build
         env:          
-          PRIVATE_SIB_KEY: ${{ secrets.sibApiKey }}
-          PRIVATE_TO_EMAIL: ${{ secrets.toEmail }}
-          PRIVATE_TO_NAME: ${{ secrets.toName }}
-          PRIVATE_FROM_EMAIL: ${{ secrets.fromEmail }}
-          PRIVATE_FROM_NAME: ${{ secrets.fromName }}
+          PRIVATE_SIB_KEY: ${{ secrets.PRIVATE_SIB_KEY }}
+          PRIVATE_TO_EMAIL: ${{ secrets.PRIVATE_TO_EMAIL }}
+          PRIVATE_TO_NAME: ${{ secrets.PRIVATE_TO_NAME }}
+          PRIVATE_FROM_EMAIL: ${{ secrets.PRIVATE_FROM_EMAIL }}
+          PRIVATE_FROM_NAME: ${{ secrets.PRIVATE_FROM_NAME }}
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
