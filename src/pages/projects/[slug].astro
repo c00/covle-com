@@ -14,7 +14,7 @@ const { Content } = await entry.render();
 console.log(new Date().toLocaleDateString())
 ---
 
-<ProjectLayout>
+<ProjectLayout title={entry.data.title}>
   <div class="my-3 text-sm text-slate-600">{formatDate(entry.data.date)}</div>
   <h1 class="mb-0">{entry.data.title}</h1>
   <Author />

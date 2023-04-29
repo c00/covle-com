@@ -1,9 +1,13 @@
 ---
 import BackButton from "../components/BackButton.astro";
 import PageLayout from "./PageLayout.astro";
+
+const { title } = Astro.props;
+
+const pageTitle = title + ' - Covle';
 ---
 
-<PageLayout>
+<PageLayout title={pageTitle}>
   <div class="mt-12">
     <BackButton text="Back to projects" />
   </div>
