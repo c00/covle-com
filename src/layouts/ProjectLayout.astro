@@ -1,0 +1,19 @@
+---
+import BackButton from "../components/BackButton.astro";
+import PageLayout from "./PageLayout.astro";
+---
+
+<PageLayout>
+  <div class="mt-12">
+    <BackButton text="Back to projects" />
+  </div>
+  <div class="prose dark:prose-invert mx-auto pt-12 md-content">
+    <slot />
+  </div>
+</PageLayout>
+
+<style is:global>
+  .md-content img:not(.author) {
+    @apply rounded-lg shadow-md;
+  }
+</style>

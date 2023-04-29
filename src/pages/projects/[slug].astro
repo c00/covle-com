@@ -1,0 +1,22 @@
+---
+import { getEntryBySlug } from "astro:content";
+import ProjectLayout from "../../layouts/ProjectLayout.astro";
+import { formatDate } from "../../util/formatDate";
+import Author from "../../components/Author.astro";
+
+const { slug } = Astro.params;
+if (slug === undefined) throw new Error("Slug is required");
+
+const entry = await getEntryBySlug("projects", slug);
+if (entry === undefined) return Astro.redirect("/404");
+
+const { Content } = await entry.render();
+console.log(new Date().toLocaleDateString())
+---
+
+<ProjectLayout>
+  <div class="my-3 text-sm text-slate-600">{formatDate(entry.data.date)}</div>
+  <h1 class="mb-0">{entry.data.title}</h1>
+  <Author />
+  <Content />
+</ProjectLayout>

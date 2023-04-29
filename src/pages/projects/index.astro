@@ -1,0 +1,14 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+---
+
+<PageLayout>
+  <h1>Projects</h1>
+
+  <div>
+    {projects.map(p => <a href={`/projects/${p.slug}`}>{p.data.title}</a>)}
+  </div>
+</PageLayout>
