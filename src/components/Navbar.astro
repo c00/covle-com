@@ -3,7 +3,24 @@ import DarkModeSwitch from "./DarkModeSwitch.svelte";
 import Logo from "./Logo.astro";
 ---
 
-<div class="flex justify-between mt-8">
+<!-- Small screen menu -->
+<div class="md:hidden flex flex-wrap justify-between mt-8">
+  <a href="/" class="h-12 py-2"><Logo /></a>
+  <nav class="grow text-right">
+    <ul
+      class="gap-4 px-8 py-3 font-semibold"
+    >
+      <li><a href="/about">About</a></li>
+      <li><a href="/projects">Projects</a></li>
+      <li><a href="/testimonies">Testimonies</a></li>
+      <li><a href="/contact">Contact</a></li>
+
+    </ul>
+  </nav>
+</div>
+
+<!-- Big screen menu -->
+<div class="hidden md:flex flex-wrap justify-between mt-8">
   <a href="/" class="w-1/5 h-12 py-2"><Logo /></a>
   <nav class="">
     <ul
@@ -15,7 +32,7 @@ import Logo from "./Logo.astro";
       <li><a href="/contact">Contact</a></li>
     </ul>
   </nav>
-  <div class="w-1/5 text-right">
+  <div class="hidden lg:block w-1/5 text-right">
     <div class="inline-block">
       <DarkModeSwitch client:only />
     </div>
