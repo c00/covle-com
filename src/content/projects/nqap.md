@@ -4,7 +4,7 @@ date: 2023-04-24
 slug: nqap
 share:
   title: 'Project: Netques Application Platform'
-  description: Some description of the thing
+  description: 'We decided to move that platform to the next level: A second iteration where we could support any grant and loan application...'
   image: /nqap/nqap-jumbo.png
 ---
 
