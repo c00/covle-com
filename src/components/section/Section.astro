@@ -1,11 +1,11 @@
 ---
 const { title } = Astro.props;
 ---
-<section class="flex gap-4 border-l border-slate-200 dark:border-slate-700 pl-8 my-6">
-  <div class="w-1/4 header text-sm">
+<section class="flex flex-wrap md:flex-nowrap gap-4 border-l border-slate-200 dark:border-slate-700 pl-8 my-6">
+  <div class="w-full md:w-1/4 header text-sm">
     {title}
   </div>
-  <div class="w-3/4">
+  <div class="w-full md:w-3/4">
     <slot />
   </div>
 

@@ -1,11 +1,9 @@
 <script lang="ts">
   export let image: string = '/me-square-2.jpg';
   export let rotation = Math.floor(Math.random() * 20) - 10 + 'deg';
-  export let width = '280px';
-  export let height = '280px';
   export let link = "#";
 </script>
-<a href={link} class="image" style="background-image: url('{image}'); width: {width}; height: {height}; rotate: {rotation}">
+<a href={link} class="image h-40 w-40 md:w-64 md:h-64" style="background-image: url('{image}'); rotate: {rotation}">
 
 </a>
 
