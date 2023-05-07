@@ -52,7 +52,7 @@ Kubernetes! It's about time we throw in some buzzwords. We host all our stuff on
 
 The front-end runs... *drumroll* Angular! 
 
-I know, I know, calm down. Everybody loves to hate on Angular. Often myself included. But when we started this project, it was the framework I was most comfortable with by far and could execute the fastest in. So it made sense. And still I think it's a pretty decent framework. 
+<span class="text-cyan-700">_I know, I know, calm down._</span> Everybody loves to hate on Angular. Often myself included. But when we started this project, it was the framework I was most comfortable with by far and could execute the fastest in. So it made sense. And still I think it's a pretty decent framework. 
 
 The opinionated nature of Angular makes it rather easy to onboard new developers. Unlike React, where there's a million ways of doing the same thing (including a lot of terrible ways), Angular is pretty straight forward in how it works. Any Angular project you'll see, you'll be able to work with fairly quickly. (Also it was created by a slightly less evil company than React.) Nowadays my front-end framework-not-a-framework of choice is Sveltekit. 
 
